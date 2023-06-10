@@ -12,10 +12,6 @@ type Page struct {
 	Body  []byte
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
-}
-
 func (p *Page) save() error {
 	filename := p.Title + ".txt"
 	return os.WriteFile(filename, p.Body, 0600)
@@ -35,6 +31,10 @@ func main3() {
 	p1.save()
 	p2, _ := loadPage("TestPage")
 	fmt.Println(string(p2.Body))
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
 }
 
 func main() {
